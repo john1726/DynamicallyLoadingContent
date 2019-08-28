@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using DynamicallyLoadingContent.Models.Repositories;
 
 namespace DynamicallyLoadingContent.Models.Common
 {
@@ -11,16 +12,31 @@ namespace DynamicallyLoadingContent.Models.Common
     /// </summary>
     public sealed class UnitOfWork : IUnitOfWork
     {
+        private EmployeeInfoRepository _employeeInfoRepository;
+
+        public EmployeeInfoRepository EmployeeInfoRepository
+        {
+            get
+            {
+
+                if (_employeeInfoRepository == null)
+                {
+                    _employeeInfoRepository = new EmployeeInfoRepository(_dbContext);
+                }
+                return _employeeInfoRepository;
+            }
+        }
+
         /// <summary>
         /// The DbContext
         /// </summary>
-        private DbContext _dbContext;
+        private Entities _dbContext;
 
         /// <summary>
         /// Initializes a new instance of the UnitOfWork class.
         /// </summary>
         /// <param name="context">The object context</param>
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(Entities context)
         {
 
             _dbContext = context;

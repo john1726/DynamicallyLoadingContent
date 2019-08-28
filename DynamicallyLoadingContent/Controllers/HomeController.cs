@@ -4,23 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DynamicallyLoadingContent.Models;
+using DynamicallyLoadingContent.Models.Common;
 using DynamicallyLoadingContent.Models.Repositories;
 
 namespace DynamicallyLoadingContent.Controllers
 {
     public class HomeController : Controller
     {
-        private Entities _db = new Entities();
-        private IEmployeeInfoRepository _employeeInfoRepository;
+        private readonly Entities _db = new Entities();
+        private readonly UnitOfWork _unitOfWork = null;
 
         public HomeController()
         {
-            _employeeInfoRepository = new EmployeeInfoRepository(_db);
+            _unitOfWork = new UnitOfWork(_db);
         }
 
         public ActionResult Index()
         {
-            return View(_employeeInfoRepository.GetAll());
+            return View(_unitOfWork.EmployeeInfoRepository.GetAll());
         }
 
         public ActionResult About()

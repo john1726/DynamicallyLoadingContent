@@ -24,18 +24,10 @@ namespace DynamicallyLoadingContent.Controllers
             return View(_unitOfWork.EmployeeInfoRepository.GetAll());
         }
 
-        public ActionResult About()
+        public ActionResult EmployeeInfo(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            List<EmployeeInfo> empInfo = _unitOfWork.EmployeeInfoRepository.GetAll().Where(x => x.Id == id).ToList();
+            return View(empInfo);
         }
     }
 }

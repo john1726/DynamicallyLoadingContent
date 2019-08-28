@@ -1,3 +1,5 @@
+using DynamicallyLoadingContent.Models.Common;
+
 namespace DynamicallyLoadingContent.Models
 {
     using System;
@@ -7,10 +9,10 @@ namespace DynamicallyLoadingContent.Models
     using System.Data.Entity.Spatial;
 
     [Table("EmployeeInfo")]
-    public partial class EmployeeInfo
+    public partial class EmployeeInfo : Entity<int>
     {
         [Key]
-        public int EmployeeId { get; set; }
+        public override int Id { get; set; }
 
         [Required]
         [StringLength(200)]
